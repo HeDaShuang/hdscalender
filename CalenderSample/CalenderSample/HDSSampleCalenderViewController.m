@@ -1,6 +1,6 @@
 //
-//  AXLSignNoteViewController.m
-//  Yumiyou
+//  HDSSampleCalenderViewController.m
+//  
 //
 //  Created by hedashuang on 14-10-23.
 //  Copyright (c) 2015年 anslink. All rights reserved.
@@ -69,8 +69,8 @@ static int testyear = 0;
     self.month = [monthStr intValue];
     self.day = [dayStr intValue];
     
-    testmonth = self.month;
-    testyear = self.year;
+    testmonth = (int)self.month;
+    testyear = (int)self.year;
     
     self.monthLabel.text = [NSString stringWithFormat:@"%d", testmonth];
     self.yearLabel.text = [NSString stringWithFormat:@"%d", testyear];
@@ -119,9 +119,9 @@ static int testyear = 0;
     }
     self.yearLabel.text = [NSString stringWithFormat:@"%d", testyear];
     
-    int monthdays = [self currentMonthofDays:testyear And:testmonth];
+    int monthdays = (int)[self currentMonthofDays:testyear And:testmonth];
     NSLog(@"当前月的天数：%d", monthdays);
-    int weekday = [self currentMothFirstDayWeek:testyear And:testmonth];
+    int weekday = (int)[self currentMothFirstDayWeek:testyear And:testmonth];
     NSLog(@"当前月的第一天是星期：%d", weekday);
     
     [self reloadDataWith:monthdays And:weekday];
@@ -165,9 +165,9 @@ static int testyear = 0;
     //int testI1 = [self currentMothFirstDayWeek:2015 And:1];
    // NSLog(@"testI1 = %d", testI1);
     
-    int monthdays = [self currentMonthofDays:testyear And:testmonth];
+    int monthdays = (int)[self currentMonthofDays:testyear And:testmonth];
     NSLog(@"当前月的天数：%d", monthdays);
-    int weekday = [self currentMothFirstDayWeek:testyear And:testmonth];
+    int weekday = (int)[self currentMothFirstDayWeek:testyear And:testmonth];
     NSLog(@"当前月的第一天是星期：%d", weekday);
     
     [self reloadDataWith:monthdays And:weekday];
@@ -265,16 +265,16 @@ static int testyear = 0;
 #pragma mark 添加日期数据到日历表 当前月的天数和第一天是星期几
 -(void)reloadDataWith:(NSInteger) month And:(NSInteger) weekday
 {
-    for (int i = weekday; i < weekday + month; i ++)
+    for (long i = weekday; i < weekday + month; i ++)
     {
         UILabel *testLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 31, 30)];
         testLabel.backgroundColor = [UIColor clearColor];
         testLabel.textAlignment = NSTextAlignmentCenter;
-        testLabel.text = [NSString stringWithFormat:@"%d", i - weekday+1];
+        testLabel.text = [NSString stringWithFormat:@"%ld", i - weekday+1];
     
         [self.dateLabelArray addObject:testLabel];
         [[[self.dateListBGView subviews] objectAtIndex:i] addSubview:testLabel];
-        int buttontag = [[[self.dateListBGView subviews] objectAtIndex:i] tag];
+        int buttontag = (int)[[[self.dateListBGView subviews] objectAtIndex:i] tag];
         
         //给周六和周日对应日期添加颜色效果
         if ((buttontag == 1) || (buttontag == 8) ||(buttontag == 15) || (buttontag == 22) ||(buttontag == 29) || (buttontag == 36))
