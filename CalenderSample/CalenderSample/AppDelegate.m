@@ -19,6 +19,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
    
+    NSLog(@"I AM THE BEST ONE");
     HDSSampleCalenderViewController *sampleCVC = [[HDSSampleCalenderViewController alloc]init];
     self.window.rootViewController = sampleCVC;
     
