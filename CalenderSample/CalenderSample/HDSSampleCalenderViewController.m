@@ -76,7 +76,9 @@ static int testyear = 0;
     self.yearLabel.text = [NSString stringWithFormat:@"%d", testyear];
     
     //本月日期数据加载到日历
-    [self reloadDataWith: [self currentMonthofDays:testyear And:testmonth] And:[self currentMothFirstDayWeek:testyear And:testmonth]];
+    //[self reloadDataWith: [self currentMonthofDays:testyear And:testmonth] And:[self currentMothFirstDayWeek:testyear And:testmonth]];
+    
+    [self reloadDataWith:testyear And:[self currentMonthofDays:testyear And:testmonth] And:[self currentMothFirstDayWeek:testyear And:testmonth]];
     
 }
 
@@ -124,7 +126,7 @@ static int testyear = 0;
     int weekday = (int)[self currentMothFirstDayWeek:testyear And:testmonth];
     NSLog(@"当前月的第一天是星期：%d", weekday);
     
-    [self reloadDataWith:monthdays And:weekday];
+    [self reloadDataWith:testyear And:monthdays And:weekday];
 }
 
 - (IBAction)calenderRightButtonAction:(id)sender
@@ -170,7 +172,8 @@ static int testyear = 0;
     int weekday = (int)[self currentMothFirstDayWeek:testyear And:testmonth];
     NSLog(@"当前月的第一天是星期：%d", weekday);
     
-    [self reloadDataWith:monthdays And:weekday];
+    [self reloadDataWith:testyear And:monthdays And:weekday];
+
 
 }
 
@@ -263,7 +266,7 @@ static int testyear = 0;
 }
 
 #pragma mark 添加日期数据到日历表 当前月的天数和第一天是星期几
--(void)reloadDataWith:(NSInteger) month And:(NSInteger) weekday
+-(void)reloadDataWith:(NSInteger)year And:(NSInteger) month And:(NSInteger) weekday
 {
     for (long i = weekday; i < weekday + month; i ++)
     {
@@ -271,6 +274,7 @@ static int testyear = 0;
         testLabel.backgroundColor = [UIColor clearColor];
         testLabel.textAlignment = NSTextAlignmentCenter;
         testLabel.text = [NSString stringWithFormat:@"%ld", i - weekday+1];
+        testLabel.tag = i - weekday+1;
     
         [self.dateLabelArray addObject:testLabel];
         [[[self.dateListBGView subviews] objectAtIndex:i] addSubview:testLabel];
@@ -291,7 +295,21 @@ static int testyear = 0;
             testLabel.textColor = [UIColor blackColor];
         }
         NSLog(@"buttontag:%d", buttontag);
+        
+        //标记当天日期
+        if( (testyear == (int)self.year)&&(testmonth == (int)self.month))
+        {
+    
+            if (testLabel.tag == self.day)
+            {
+                testLabel.backgroundColor = [UIColor redColor];
+                testLabel.layer.cornerRadius = testLabel.frame.size.width/2;
+                testLabel.layer.masksToBounds = YES;
+            }
+            
+        }
     }
+    
     
     
     [self.signnoteBGScrollview addSubview:self.dateListBGView];
