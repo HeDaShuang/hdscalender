@@ -331,7 +331,7 @@
                                     </state>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" red="0.18972639806949332" green="0.97037827968597412" blue="0.21988178561146515" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.97647064924240112" green="0.97647064924240112" blue="0.97647064924240112" alpha="1" colorSpace="deviceRGB"/>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nKG-ZR-ML6">
                             <rect key="frame" x="254" y="240" width="46" height="40"/>

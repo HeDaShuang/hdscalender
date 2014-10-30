@@ -15,7 +15,6 @@ static int testyear = 0;
 @property (weak, nonatomic) IBOutlet UIScrollView *signnoteBGScrollview;
 
 //年份月份显示标签
-
 @property (weak, nonatomic) IBOutlet UILabel *yearLabel;
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;
 @property (weak, nonatomic) IBOutlet UIView *dateListBGView;
@@ -29,12 +28,9 @@ static int testyear = 0;
 @property (nonatomic, assign) NSInteger month;
 @property (nonatomic, assign) NSInteger day;
 
-
 @end
 
 @implementation HDSSampleCalenderViewController
-
-
 
 - (void)viewDidLoad
 {
@@ -76,8 +72,6 @@ static int testyear = 0;
     self.yearLabel.text = [NSString stringWithFormat:@"%d", testyear];
     
     //本月日期数据加载到日历
-    //[self reloadDataWith: [self currentMonthofDays:testyear And:testmonth] And:[self currentMothFirstDayWeek:testyear And:testmonth]];
-    
     [self reloadDataWith:testyear And:[self currentMonthofDays:testyear And:testmonth] And:[self currentMothFirstDayWeek:testyear And:testmonth]];
     
 }
@@ -88,7 +82,6 @@ static int testyear = 0;
 }
 
 #pragma mark 日历月份加减按钮
-
 - (IBAction)calenderLeftButtonAction:(id)sender
 {
     if (self.dateLabelArray.count != 0)
@@ -164,16 +157,12 @@ static int testyear = 0;
     self.yearLabel.text = [NSString stringWithFormat:@"%d", testyear];
     self.yearLabel.text = [NSString stringWithFormat:@"%d", testyear];
     
-    //int testI1 = [self currentMothFirstDayWeek:2015 And:1];
-   // NSLog(@"testI1 = %d", testI1);
-    
     int monthdays = (int)[self currentMonthofDays:testyear And:testmonth];
     NSLog(@"当前月的天数：%d", monthdays);
     int weekday = (int)[self currentMothFirstDayWeek:testyear And:testmonth];
     NSLog(@"当前月的第一天是星期：%d", weekday);
     
     [self reloadDataWith:testyear And:monthdays And:weekday];
-
 
 }
 
@@ -275,11 +264,13 @@ static int testyear = 0;
         testLabel.textAlignment = NSTextAlignmentCenter;
         testLabel.text = [NSString stringWithFormat:@"%ld", i - weekday+1];
         testLabel.tag = i - weekday+1;
+        testLabel.font = [UIFont fontWithName:nil size:15];
     
         [self.dateLabelArray addObject:testLabel];
         [[[self.dateListBGView subviews] objectAtIndex:i] addSubview:testLabel];
         int buttontag = (int)[[[self.dateListBGView subviews] objectAtIndex:i] tag];
         
+        [[[self.dateListBGView subviews] objectAtIndex:i] addTarget:self action:@selector(daybuttonAction:) forControlEvents:UIControlEventTouchUpInside];
         //给周六和周日对应日期添加颜色效果
         if ((buttontag == 1) || (buttontag == 8) ||(buttontag == 15) || (buttontag == 22) ||(buttontag == 29) || (buttontag == 36))
         {
@@ -310,11 +301,14 @@ static int testyear = 0;
         }
     }
     
-    
-    
     [self.signnoteBGScrollview addSubview:self.dateListBGView];
 }
 
+#pragma mark 为日历添加点击事件
+-(void)daybuttonAction:(UIButton *) button
+{
+    NSLog(@"daybuttonAction %ld", button.tag);
+}
 @end
 
 
