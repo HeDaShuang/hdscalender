@@ -307,7 +307,7 @@ static int testyear = 0;
 #pragma mark 为日历添加点击事件
 -(void)daybuttonAction:(UIButton *) button
 {
-    NSLog(@"daybuttonAction %ld", button.tag);
+    NSLog(@"daybuttonAction %ld", (long)button.tag);
 }
 @end
 
